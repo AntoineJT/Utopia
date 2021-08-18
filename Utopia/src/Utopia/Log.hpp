@@ -2,9 +2,8 @@
 
 #include "Core.hpp"
 
-// TODO: Remove deps to spdlog
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
+#include <any>
+#include <memory>
 
 namespace Utopia
 {
@@ -12,63 +11,47 @@ namespace Utopia
 	{
 	public:
 		static void Init();
-		static spdlog::logger* GetCoreLogger() { return s_CoreLogger.get(); }
-		static spdlog::logger* GetClientLogger() { return s_ClientLogger.get(); }
+		static void* GetCoreLogger() { return s_CoreLogger.get(); }
+		static void* GetClientLogger() { return s_ClientLogger.get(); }
 	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+		static std::shared_ptr<void> s_CoreLogger;
+		static std::shared_ptr<void> s_ClientLogger;
 	};
 
-	namespace Log
+	struct Log
 	{
-		// Core Log
+		static void _coreError(const std::any& msg);
+		static void _error(const std::any& msg);
+		static void _info(const std::any& msg);
+
 		template<typename... Args>
-		constexpr void coreTrace(Args&&... args)
+		static constexpr void coreError(Args&&... args)
 		{
-			Logger::GetCoreLogger()->trace(std::forward<Args>(args)...);
+			std::vector<std::any> vec = { std::forward<std::any>(args)... };
+			for (auto elem : vec)
+			{
+				_coreError(elem);
+			}
 		}
 
 		template<typename... Args>
-		constexpr void coreInfo(Args&&... args)
+		static constexpr void error(Args&&... args)
 		{
-			Logger::GetCoreLogger()->info(std::forward<Args>(args)...);
+			std::vector<std::any> vec = { std::forward<std::any>(args)... };
+			for (auto elem : vec)
+			{
+				_error(elem);
+			}
 		}
 
 		template<typename... Args>
-		constexpr void coreWarn(Args&&... args)
+		static constexpr void info(Args&&... args)
 		{
-			Logger::GetCoreLogger()->warn(std::forward<Args>(args)...);
+			std::vector<std::any> vec = { std::forward<std::any>(args)... };
+			for (auto elem : vec)
+			{
+				_info(std::reference_wrapper(elem));
+			}
 		}
-
-		template<typename... Args>
-		constexpr void coreError(Args&&... args)
-		{
-			Logger::GetCoreLogger()->error(std::forward<Args>(args)...);
-		}
-
-		// SandBox Log Macros
-		template<typename... Args>
-		constexpr void trace(Args&&... args)
-		{
-			Logger::GetClientLogger()->trace(std::forward<Args>(args)...);
-		}
-
-		template<typename... Args>
-		constexpr void info(Args&&... args)
-		{
-			Logger::GetClientLogger()->info(std::forward<Args>(args)...);
-		}
-
-		template<typename... Args>
-		constexpr void warn(Args&&... args)
-		{
-			Logger::GetClientLogger()->warn(std::forward<Args>(args)...);
-		}
-
-		template<typename... Args>
-		constexpr void error(Args&&... args)
-		{
-			Logger::GetClientLogger()->error(std::forward<Args>(args)...);
-		}
-	}
+	};
 }
