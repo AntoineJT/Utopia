@@ -2,21 +2,19 @@
 
 #include "Core.hpp"
 
-// TODO: Remove deps to spdlog
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
-
 namespace Utopia
 {
 	class UTOPIA_API Logger
 	{
+	class Impl;
+
 	public:
 		static void Init();
-		static spdlog::logger* GetCoreLogger() { return s_CoreLogger.get(); }
-		static spdlog::logger* GetClientLogger() { return s_ClientLogger.get(); }
+		static Impl* GetCoreLogger() { return s_CoreLogger.get(); }
+		static Impl* GetClientLogger() { return s_ClientLogger.get(); }
 	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+		static std::unique_ptr<Impl> s_CoreLogger;
+		static std::unique_ptr<Impl> s_ClientLogger;
 	};
 
 	namespace Log
