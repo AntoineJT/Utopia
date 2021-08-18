@@ -8,9 +8,10 @@
 #include <spdlog/logger.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-struct Utopia::Logger::Impl
+class Utopia::Logger::Impl
 {
-	Impl(std::shared_ptr<spdlog::logger> logger) : logger(std::move(logger)) {};
+public:
+	Impl(std::shared_ptr<spdlog::logger> logger) : m_Logger(std::move(logger)) {};
 	/*
 	~Impl()
 	{
@@ -20,15 +21,15 @@ struct Utopia::Logger::Impl
 
 	void set_level(spdlog::level::level_enum log_level)
 	{
-		logger->set_level(log_level);
+		m_Logger->set_level(log_level);
 	}
 
 	void error(std::any&& msg)
 	{
-		logger->error(std::forward<std::any>(msg));
+		m_Logger->error(std::forward<std::any>(msg));
 	}
 private:
-	std::shared_ptr<spdlog::logger> logger;
+	std::shared_ptr<spdlog::logger> m_Logger;
 };
 
 void Utopia::Logger::Init()

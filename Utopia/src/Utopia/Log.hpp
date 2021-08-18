@@ -2,24 +2,45 @@
 
 #include "Core.hpp"
 
+#include <any>
+
 namespace Utopia
 {
 	class UTOPIA_API Logger
 	{
-	class Impl;
-
 	public:
 		static void Init();
-		static Impl* GetCoreLogger() { return s_CoreLogger.get(); }
-		static Impl* GetClientLogger() { return s_ClientLogger.get(); }
 	private:
+		class Impl;
+		// static Impl* GetCoreLogger() { return s_CoreLogger.get(); }
+		// static Impl* GetClientLogger() { return s_ClientLogger.get(); }
+
+		static void error(bool core, std::any&& msg)
+		{
+			(core ? s_CoreLogger : s_ClientLogger)->error(std::forward<std::any>(msg));
+		}
+
 		static std::unique_ptr<Impl> s_CoreLogger;
 		static std::unique_ptr<Impl> s_ClientLogger;
+
+		friend class Log;
 	};
 
-	namespace Log
+	class Log
 	{
+	public:
+		static void coreError(std::any&& msg...)
+		{
+			Log::error(true, std::forward<std::any>(msg));
+		}
+
+		static void error(std::any&& msg...)
+		{
+			Log::error(false, std::forward<std::any>(msg));
+		}
+
 		// Core Log
+		/*
 		template<typename... Args>
 		constexpr void coreTrace(Args&&... args)
 		{
@@ -68,5 +89,6 @@ namespace Utopia
 		{
 			Logger::GetClientLogger()->error(std::forward<Args>(args)...);
 		}
-	}
+		*/
+	};
 }
