@@ -50,7 +50,7 @@ namespace Utopia
 			std::vector<std::any> vec = { std::forward<std::any>(args)... };
 			for (auto elem : vec)
 			{
-				_info(std::reference_wrapper(elem));
+				_info(elem);
 			}
 		}
 	};
