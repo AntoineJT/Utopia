@@ -26,18 +26,9 @@ namespace Utopia
 		friend class Log;
 	};
 
-	class Log
+	class Log 
 	{
 	public:
-		static void coreError(std::any&& msg...)
-		{
-			Log::error(true, std::forward<std::any>(msg));
-		}
-
-		static void error(std::any&& msg...)
-		{
-			Log::error(false, std::forward<std::any>(msg));
-		}
 
 		// Core Log
 		/*

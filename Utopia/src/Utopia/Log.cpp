@@ -8,6 +8,23 @@
 #include <spdlog/logger.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+namespace Utopia
+{
+	class Log
+	{
+	public:
+		static void coreError(std::any&& msg...)
+		{
+			Logger::s_CoreLogger.m_Logger->error(std::forward<std::any>(msg));
+		}
+
+		static void error(std::any&& msg...)
+		{
+			Log::error(false, std::forward<std::any>(msg));
+		}
+	};
+}
+
 class Utopia::Logger::Impl
 {
 public:
@@ -30,6 +47,8 @@ public:
 	}
 private:
 	std::shared_ptr<spdlog::logger> m_Logger;
+
+	friend Utopia::Log;
 };
 
 void Utopia::Logger::Init()
