@@ -1,5 +1,7 @@
-#include <Utopia.hpp>
+// Needs to build with spdlog to use log system
+#define UT_USE_SPDLOG
 
+#include <Utopia.hpp>
 
 class LayerTest : public Utopia::Layer
 {

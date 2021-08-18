@@ -36,6 +36,7 @@ target("Utopia")
     add_packages("glad")
     add_packages("imgui")
 
+    add_defines("UT_USE_SPDLOG")
     if is_plat("windows") then
         add_defines("UT_PLATFORM_WINDOWS", "UT_BUILD_DLL")
     end
