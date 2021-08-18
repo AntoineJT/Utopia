@@ -4,7 +4,6 @@
 #include "Utopia/Window.hpp"
 #include "Utopia/Layer/LayerStack.hpp"
 
-
 namespace Utopia
 {
 	class UTOPIA_API Application

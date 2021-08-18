@@ -2,10 +2,6 @@
 
 #include "Core.hpp"
 
-#ifndef UT_USE_SPDLOG
-#error You can't use the logging system without spdlog
-#endif
-
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
