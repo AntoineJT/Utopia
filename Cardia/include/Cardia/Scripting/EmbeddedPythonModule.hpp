@@ -79,6 +79,12 @@ namespace Cardia
 				return glm::mix(start, end, step);
 			}, py::return_value_policy::reference);
 
+		py::class_<glm::mat4>(m, "mat4")
+			.def(py::init<>())
+			.def("__mul__", [](glm::mat4& matrix, glm::vec4& vector) {
+				return matrix * vector;
+			});
+
 
 		// Components
 
@@ -89,6 +95,12 @@ namespace Cardia
 			.def_readwrite("rotation", &Component::Transform::rotation, py::return_value_policy::reference)
 			.def_readwrite("scale", &Component::Transform::scale, py::return_value_policy::reference)
 			.def("reset", &Component::Transform::reset, py::return_value_policy::reference);
+
+		py::class_<Component::Camera>(m, "Camera")
+			.def(py::init<>())
+			.def("get_view_projection_matrix", [](Component::Camera& self) {
+				return self.camera.getViewProjectionMatrix();
+			});
 
 		py::class_<Component::Light>(m, "Light")
 			.def(py::init<>())

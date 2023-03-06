@@ -1,0 +1,79 @@
+{
+	"b19b04a0-5609-455a-8e38-3f75e9c12772" : 
+	{
+		"camera" : 
+		{
+			"orthoFar" : 1.0,
+			"orthoNear" : -1.0,
+			"orthoSize" : 10.0,
+			"perspectiveFar" : 1000.0,
+			"perspectiveFov" : 0.97825700044631958,
+			"perspectiveNear" : 0.0099999997764825821,
+			"type" : 0
+		},
+		"name" : "La camera, la camera",
+		"transform" : 
+		{
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 2.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			}
+		}
+	},
+	"be5a43ad-213f-4fd1-8019-7564695a0877" : 
+	{
+		"behavior" : 
+		{
+			"attributes" : 
+			[
+				{
+					"name" : "velocity",
+					"type" : 0,
+					"value" : 1
+				}
+			],
+			"path" : ".\\Moving.py"
+		},
+		"meshRenderer" : 
+		{
+			"path" : ".\\suzanne.obj",
+			"texture" : ""
+		},
+		"name" : "Suzanna",
+		"transform" : 
+		{
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			}
+		}
+	}
+}
